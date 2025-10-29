@@ -1,0 +1,52 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "cortex-debug",
+      
+      "name": "Debug (JLink w/ SWO)",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "executable": "./build/template-stm32f1xx.elf", // <---------------------- change to match your project name (see CMakeLists)
+      
+      /* Debug Probe */
+      "servertype": "jlink",
+      "interface": "swd",
+      "device": "STM32F103C8", // <--------------------------------------------- change to match your exact MCU type
+      "runToEntryPoint": "main",
+
+      /* Peripherals viewer */
+      "svdPath": "Keil::STM32F1xx_DFP@2.4.1",
+      "deviceName": "STM32F103C8", // <----------------------------------------- change to match your exact MCU type
+      "processorName": "cm3",
+
+      /* Memory viewer */
+      "liveWatch": {
+        "enabled": true,
+        "samplesPerSecond": 4
+      },
+
+      /* SWO */
+      /*"swoConfig": {
+        "enabled": true,
+        "source": "probe",
+        "cpuFrequency": 72000000,
+        "decoders": [
+          {
+            "type": "console",
+            "label": "ITM", 
+            "showOnStartup": true,
+            "port": 0,
+            "encoding": "ascii"
+          }
+        ]
+      },*/
+
+      /* Semihosting */
+      /*"postLaunchCommands": [
+        "monitor semihosting enable",
+        "monitor semihosting ioclient 3"
+      ],*/
+    }
+  ]
+}

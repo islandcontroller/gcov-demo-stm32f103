@@ -1,0 +1,79 @@
+{
+	"name": "Arm GNU Toolchain",
+
+	// Pull and use pre-built image from Docker Hub
+	"image": "islandc/armcm-devcontainer",
+
+	// Privileged container in order to access /dev
+	"privileged": true,
+
+	// Mount USB devices (debug probes, UART interfaces, ...)
+	"mounts": [
+		"source=/dev/bus/usb/,target=/dev/bus/usb/,type=bind"
+	],
+
+	// Pre-configure settings and extensions
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"[arm]": {
+					"editor.tabSize": 4,
+					"editor.insertSpaces": true,
+					"files.insertFinalNewline": true,
+					"files.trimTrailingWhitespace": true
+				},
+				"[c]": {
+					"editor.tabSize": 4,
+					"editor.insertSpaces": true,
+					"files.insertFinalNewline": true,
+					"files.trimTrailingWhitespace": true
+				},
+				"[cmake]": {
+					"editor.tabSize": 8,
+					"editor.insertSpaces": false
+				},
+				"[makefile]": {
+					"editor.tabSize": 8,
+					"editor.insertSpaces": false
+				},
+
+				"files.associations": {
+					"*.c": "c",
+					"*.h": "c",
+					"*.inc": "c",
+					"*.s": "arm",
+					"*.S": "arm",
+					"*.asm": "arm",
+					"*.ld": "linkerscript"
+				},
+				
+				"editor.insertSpaces": true,
+				"editor.rulers": [80],
+				"editor.tabSize": 2,
+
+				"C_Cpp.default.compilerPath": "/opt/gcc-arm-none-eabi/bin/arm-none-eabi-gcc",
+				"C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+				"C_Cpp.default.intelliSenseMode": "gcc-arm",
+				"C_Cpp.errorSquiggles": "disabled",
+			
+				"cmake.configureOnOpen": true,
+				"cmake.additionalKits": [ "/opt/devcontainer/cmake-tools-kits.json" ],
+				"cmake.options.advanced": {
+					"variant": {
+						"statusBarVisibility": "visible"
+					}
+				}
+			},
+			"extensions": [
+				"dan-c-underwood.arm",
+				"keroc.hex-fmt",
+				"marus25.cortex-debug",
+				"mcu-debug.peripheral-viewer",
+				"ms-vscode.cpptools-extension-pack",
+				"ms-vscode.cmake-tools",
+				"trond-snekvik.gnu-mapfiles",
+				"ZixuanWang.linkerscript"
+			]
+		}
+	}
+}

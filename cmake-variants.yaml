@@ -1,0 +1,12 @@
+buildType:
+  default: debug
+  description: Build Configuration
+  choices:
+    debug:
+      short: Debug
+      long: Build with debug symbols (-O1 -g)
+      buildType: Debug
+    release:
+      short: Release
+      long: Build release configuration (-O2)
+      buildType: Release
