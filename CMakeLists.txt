@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 # Project setup
-project(template-stm32f1xx # <-------------------------------------------------- set your project name here
+project(gcov-demo-stm32f103
 	LANGUAGES C ASM
 )
 
@@ -34,11 +34,11 @@ target_sources(${PROJECT_NAME} PRIVATE ${TARGET_SOURCES})
 # Include paths
 target_include_directories(${PROJECT_NAME} PRIVATE
 	${CMAKE_SOURCE_DIR}
-	Controller
+	Controller/
 	Controller/STM32F1xx
 	Controller/STM32F1xx/Core
 	Controller/STM32F1xx/Peripheral/inc
-	# <--------------------------------------------------------------------- add your additional includes here
+	Coverage/
 )
 
 # Common compiler/linker settings
@@ -50,7 +50,7 @@ set(MACHINE_OPTIONS
 
 # Compiler configuration
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-	-DSTM32F103xB # <------------------------------------------------------- change to match your MCU type
+	-DSTM32F103xB
 )
 target_compile_options(${PROJECT_NAME} PRIVATE
 	${MACHINE_OPTIONS}
@@ -62,12 +62,12 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 	-Wall
 	-Wextra
 
-	$<$<CONFIG:Debug>:-O1 -g> # <------------------------------------------- set optimization and config flags here (Debug/Release)
-	$<$<CONFIG:Release>:-O2>
+	-O1
+	-g
 )
 
 # Linker configuration
-set(LINKER_FILE Controller/STM32F1xx/linker_script_stm32f103x8.ld) # <---------- change to match your MCU type
+set(LINKER_FILE Controller/STM32F1xx/linker_script_stm32f103x8.ld)
 cmake_path(REMOVE_FILENAME LINKER_FILE OUTPUT_VARIABLE LINKER_BASEDIR)
 cmake_path(GET LINKER_FILE FILENAME LINKER_FILE)
 target_link_directories(${PROJECT_NAME} PRIVATE	${LINKER_BASEDIR})
@@ -83,11 +83,6 @@ target_link_options(${PROJECT_NAME} PRIVATE
 	-Wl,--gc-sections
 	-Wl,--print-memory-usage
 	-Wl,-Map=${PROJECT_NAME}${CMAKE_MAPFILE_SUFFIX},--cref
-)
-target_link_libraries(${PROJECT_NAME}
-	PUBLIC c # libc
-	PUBLIC m # libm (math)
-	# <--------------------------------------------------------------------- adjust these to your needs
 )
 
 # Post-Build: register generated mapfile
@@ -111,3 +106,6 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 	COMMAND ${CMAKE_OBJCOPY} -O ihex ${PROJECT_NAME}${CMAKE_EXECUTABLE_SUFFIX} ${PROJECT_NAME}${CMAKE_HEXFILE_SUFFIX}
 )
+
+# Add additional options for coverage instrumentation
+include(Coverage/coverage.cmake)

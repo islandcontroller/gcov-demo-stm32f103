@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "label": "Process coverage data and generate HTML report",
+      "type": "shell",
+      "command": "../Coverage/process_coverage.sh",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Serve coverage report via HTTP",
+      "type": "shell",
+      "command": "python3 -m http.server -d ${workspaceFolder}/build",
+      "problemMatcher": []
+    }
+  ]
+}

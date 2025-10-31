@@ -7,17 +7,17 @@
       "name": "Debug (JLink w/ SWO)",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "executable": "./build/template-stm32f1xx.elf", // <---------------------- change to match your project name (see CMakeLists)
+      "executable": "./build/gcov-demo-stm32f103.elf",
       
       /* Debug Probe */
       "servertype": "jlink",
       "interface": "swd",
-      "device": "STM32F103C8", // <--------------------------------------------- change to match your exact MCU type
+      "device": "STM32F103C8",
       "runToEntryPoint": "main",
 
       /* Peripherals viewer */
       "svdPath": "Keil::STM32F1xx_DFP@2.4.1",
-      "deviceName": "STM32F103C8", // <----------------------------------------- change to match your exact MCU type
+      "deviceName": "STM32F103C8",
       "processorName": "cm3",
 
       /* Memory viewer */
@@ -43,10 +43,10 @@
       },*/
 
       /* Semihosting */
-      /*"postLaunchCommands": [
+      "postLaunchCommands": [
         "monitor semihosting enable",
         "monitor semihosting ioclient 3"
-      ],*/
+      ]
     }
   ]
 }

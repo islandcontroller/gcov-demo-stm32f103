@@ -12,6 +12,9 @@
 		"source=/dev/bus/usb/,target=/dev/bus/usb/,type=bind"
 	],
 
+	// Install additional dependencies at runtime
+	"postCreateCommand": "${containerWorkspaceFolder}/.devcontainer/setup.sh",
+
 	// Pre-configure settings and extensions
 	"customizations": {
 		"vscode": {
@@ -23,7 +26,7 @@
 					"files.trimTrailingWhitespace": true
 				},
 				"[c]": {
-					"editor.tabSize": 4,
+					"editor.tabSize": 2,
 					"editor.insertSpaces": true,
 					"files.insertFinalNewline": true,
 					"files.trimTrailingWhitespace": true
@@ -57,12 +60,7 @@
 				"C_Cpp.errorSquiggles": "disabled",
 			
 				"cmake.configureOnOpen": true,
-				"cmake.additionalKits": [ "/opt/devcontainer/cmake-tools-kits.json" ],
-				"cmake.options.advanced": {
-					"variant": {
-						"statusBarVisibility": "visible"
-					}
-				}
+				"cmake.additionalKits": [ "/opt/devcontainer/cmake-tools-kits.json" ]
 			},
 			"extensions": [
 				"dan-c-underwood.arm",
