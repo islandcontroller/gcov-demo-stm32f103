@@ -2,6 +2,8 @@
 
 Small demo project showing how to use gcov on an embedded target.
 
+<p align="center"><img src="scr.png" /></p>
+
 ## Requirements
 
 * Hardware
